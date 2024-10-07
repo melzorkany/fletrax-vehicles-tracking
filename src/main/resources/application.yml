@@ -1,0 +1,26 @@
+mqtt:
+  broker:
+    host: ${MQTT_HOST:hedef.fletrax.com}
+    port: ${MQTT_PORT:1883}
+  username: ${MQTT_USERNAME:skynasa}
+  password: ${MQTT_PASSWORD:skynasa2024}
+  topic: "external/device/message/#"
+logging:
+  level:
+    org.apache.kafka.streams: DEBUG
+spring:
+  kafka:
+    streams:
+      application-id: vehicle-tracking-streams-app
+      bootstrap-servers: localhost:9092
+      state-dir: /tmp/kafka-streams
+      default-key-serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+      default-value-serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: vehicle-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    listener:
+      missing-topics-fatal: false
